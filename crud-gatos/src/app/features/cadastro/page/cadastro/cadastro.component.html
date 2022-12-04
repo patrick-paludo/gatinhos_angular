@@ -1,0 +1,32 @@
+<p-table [value]="listaGatos">
+  <ng-template pTemplate="header">
+      <tr>
+          <th *ngFor="let col of cols">
+              {{col.header}}
+          </th>
+          <th>
+            Ações
+        </th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-gato>
+      <tr>
+          <td *ngFor="let col of cols">
+                  {{gato[col.field]}}
+          </td>
+          <td>
+            <span class="p-buttonset">
+              <app-button label="Deletar" (click)="deleteGato(gato.id)"></app-button>
+          </span>
+        </td>
+      </tr>
+  </ng-template>
+</p-table>
+
+<p *ngIf="!listaGatos?.length">Nenhum gato cadastrado!</p>
+
+<hr>
+
+<app-formulario (onSalvar)="insertGato($event)"></app-formulario>
+
+

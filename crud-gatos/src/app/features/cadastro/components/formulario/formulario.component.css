@@ -1,0 +1,14 @@
+.formulario {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.space {
+  margin-bottom: 20px;
+}
+
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
