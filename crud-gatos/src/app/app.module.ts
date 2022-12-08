@@ -18,6 +18,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 registerLocaleData(pt);
 
@@ -38,7 +40,9 @@ registerLocaleData(pt);
     NzInputModule,
     ReactiveFormsModule,
     NzDatePickerModule,
-    NzIconModule
+    NzIconModule,
+    NzSpaceModule,
+    NzPopconfirmModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: pt_BR },
