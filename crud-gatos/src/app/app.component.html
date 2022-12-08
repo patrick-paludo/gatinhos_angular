@@ -1,1 +1,213 @@
-<app-cadastro></app-cadastro>
+<div class="container">
+  <h1>CRUD Gatos</h1>
+
+  <nz-table #table [nzData]="listOfData">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Raça</th>
+        <th>Peso</th>
+        <th>Data de nascimento</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of table.data">
+        <td>{{ data.id }}</td>
+        <td>{{ data.nome }}</td>
+        <td>{{ data.raca }}</td>
+        <td>{{ data.peso }}</td>
+        <td>{{ data.data_nascimento | date : "yyyy/MM/dd" }}</td>
+        <td>
+          <button
+            nz-button
+            nzType="default"
+            nzDanger
+            (click)="deleteGato(data.id)"
+          >
+            <span
+              nz-icon
+              nzType="delete"
+              nzTheme="twotone"
+              twoToneColor="#f5222d"
+            ></span>
+          </button>
+
+          <span style="padding: 5px"></span>
+
+          <button nz-button nzType="default" (click)="showModalEditar(data.id)">
+            <span
+              nz-icon
+              nzType="edit"
+              nzTheme="twotone"
+              twoToneColor="#8c8c8c"
+            ></span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <button nz-button [nzType]="'primary'" (click)="showModal()">
+    <span>Cadastrar gatos</span>
+  </button>
+
+  <nz-modal
+    [(nzVisible)]="isModalCadastrarVisible"
+    nzTitle="Cadastrar gatos"
+    (nzOnCancel)="handleCancel()"
+    (nzOnOk)="submitForm()"
+    [nzFooter]="modalFooter"
+  >
+    <ng-container *nzModalContent>
+      <form
+        nz-form
+        [formGroup]="formCadastrar"
+        (ngSubmit)="submitForm()"
+      >
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe o nome do gato...">
+            <nz-input-group>
+              <input
+                type="text"
+                nz-input
+                formControlName="nome"
+                placeholder="Nome"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a raça do gato...">
+            <nz-input-group>
+              <input
+                type="text"
+                nz-input
+                formControlName="raca"
+                placeholder="Raça"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a peso do gato...">
+            <nz-input-group>
+              <input
+                type="text"
+                nz-input
+                formControlName="peso"
+                placeholder="Peso"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a data de nascimento do gato...">
+            <nz-input-group>
+              <nz-date-picker
+                [(ngModel)]="date"
+                (ngModelChange)="onChange($event)"
+                formControlName="data_nascimento"
+                nzFormat="yyyy/MM/dd"
+              >
+              </nz-date-picker>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </ng-container>
+
+    <ng-template #modalFooter>
+      <button nz-button nzType="default" nzDanger (click)="handleCancel()">
+        Cancelar
+      </button>
+      <button nz-button nzType="primary" (click)="submitForm()">
+        Cadastrar
+      </button>
+    </ng-template>
+  </nz-modal>
+</div>
+
+<nz-modal
+  [(nzVisible)]="isModalEditarVisible"
+  nzTitle="Editar gato"
+  (nzOnCancel)="handleCancelModalEditar()"
+  (nzOnOk)="submitFormModalEditar()"
+  [nzFooter]="modalEditarFooter"
+>
+  <ng-container *nzModalContent>
+    <form
+      nz-form
+      [formGroup]="formEditar"
+      (ngSubmit)="submitFormModalEditar()"
+    >
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group>
+            <input
+              nz-input
+              formControlName="id"
+              placeholder="Id"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Informe o nome do gato...">
+          <nz-input-group>
+            <input
+              type="text"
+              nz-input
+              formControlName="nome"
+              placeholder="Nome"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Informe a raça do gato...">
+          <nz-input-group>
+            <input
+              type="text"
+              nz-input
+              formControlName="raca"
+              placeholder="Raça"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Informe a peso do gato...">
+          <nz-input-group>
+            <input
+              type="text"
+              nz-input
+              formControlName="peso"
+              placeholder="Peso"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Informe a data de nascimento do gato...">
+          <nz-input-group>
+            <nz-date-picker
+              (ngModelChange)="onChange($event)"
+              formControlName="data_nascimento"
+              nzFormat="yyyy/MM/dd"
+            >
+            </nz-date-picker>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+
+  <ng-template #modalEditarFooter>
+    <button nz-button nzType="default" nzDanger (click)="handleCancelModalEditar()">
+      Cancelar
+    </button>
+    <button nz-button nzType="primary" (click)="submitFormModalEditar()">Editar</button>
+  </ng-template>
+</nz-modal>

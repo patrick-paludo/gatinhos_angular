@@ -13,7 +13,7 @@ export class CadastroService {
     return this.httpClient.get<Array<GatoDTO>>(`${environment.apiURL}/gatos`);
   }
 
-  selectByID(id: number) {
+  selectByID(id: string) {
     return this.httpClient.get<GatoDTO>(`${environment.apiURL}/gatos/${id}`);
   }
 
@@ -25,7 +25,7 @@ export class CadastroService {
     return this.httpClient.put(`${environment.apiURL}/gatos`, gato);
   }
 
-  delete(id: number) {
+  delete(id: string) {
     return this.httpClient.delete(`${environment.apiURL}/gatos/${id}`);
   }
 }
